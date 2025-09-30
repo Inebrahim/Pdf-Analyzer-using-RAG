@@ -17,7 +17,6 @@ This implementation has been specifically engineered to run on free, open-source
 This guide provides a step-by-step process to set up and run the application.
 
 ### Prerequisites
-- Python 3.10 or newer
 - Git
 
 ### Step 1: Clone the Repository
@@ -26,38 +25,58 @@ First, get a copy of the project on your local machine.
 git clone https://github.com/YourUsername/YourNewRepoName.git
 cd YourNewRepoName
 ```
-### Step 2: Set Up a Virtual Environment (Highly Recommended)
-This creates an isolated environment for the project's dependencies.
+### Step 2: Create a New Space
+Go to Hugging Face Spaces
+Click New Space.
+Select:
+- SDK: Gradio
+- Space hardware: free CPU is usually enough
+- Visibility: Public (or Private if you prefer)
 
-### Create the environment
-```
-python -m venv venv
-```
-### Activate it (on Windows)
-```
-venv\Scripts\activate
-```
-### Activate it (on Mac/Linux)
-```
-source venv/bin/activate
-```
-### Step 3: Install Required Libraries
-Install all the necessary Python packages using the provided file.
-```python
-pip install -r requirements.txt
-```
-### Step 4: Add Your API Key
-This application uses the Ollama Turbo API for high-quality AI reasoning.
-Create a file named .env in the root of the project.
-Add your Ollama API key to this file like so:
-```OLLAMA_API_KEY="ollama_your_api_key_here"```
-(Note: For deployment on platforms like Hugging Face Spaces, this key should be stored as a secure "Secret".)
+### Step 3: Configure Secrets
 
-### Step 5: Run the Application
-You are now ready to start the web interface.
-```python main.py```
+App requires API keys (e.g., OLLAMA_API_KEY), you must store them securely:
+In your Space, go to Settings → Repository Secrets.
+Add a new secret with key OLLAMA_API_KEY and paste your key value.
 
-After a few moments, you will see a local URL in your terminal (like http://127.0.0.1:7860). Open this link in your web browser to use the application.
+### Step 4: Upload Your Code
+
+Upload the following files into your Space repository (you can drag & drop in the HF web editor or push via Git):
+
+### Project Structure Overview
+```
+├── documents/              # Place your source PDFs here (optional, for local use)
+├── autosar_rag_data/       # Stores the permanent, pre-built knowledge base
+├── PathRAG/                # The core PathRAG library
+│   ├── __init__.py
+│   ├── base.py             # Abstract base classes for storage
+│   ├── llm.py              # Functions for interacting with AI models
+│   ├── operate.py          # Core logic for indexing and querying
+│   ├── pathrag.py          # The main PathRAG class and configuration
+│   ├── prompt.py           # All prompts used by the LLM
+│   └── storage.py          # Concrete storage implementations
+├── main.py                 # The main Gradio application file
+├── requirements.txt        # All Python dependencies
+└── README.md               # Specific for Hugging Face
+```
+
+Hugging Face will automatically install packages listed in requirements.txt and run main.py.
+
+Following README.md needs to be inserted for HF:
+
+```
+---
+title: PathRAG
+emoji: 🔍
+colorFrom: blue
+colorTo: purple
+sdk: gradio
+app_file: main.py
+pinned: false
+sdk_version: 5.43.1
+---
+
+```
 
 ### How the Application Works
 The application has two main workflows accessible through the UI tabs.
@@ -75,22 +94,6 @@ Once a document has been indexed, you can ask questions.
 - **Type your question into the "Ask a Question" box and press Enter.**
 - **The system will use its knowledge graph to find the most relevant information and generate an answer. The first query may be slow as the models are loaded into memory.**
 
-### Project Structure Overview
-```
-├── documents/              # Place your source PDFs here (optional, for local use)
-├── autosar_rag_data/       # Stores the permanent, pre-built knowledge base
-├── PathRAG/                # The core PathRAG library
-│   ├── __init__.py
-│   ├── base.py             # Abstract base classes for storage
-│   ├── llm.py              # Functions for interacting with AI models
-│   ├── operate.py          # Core logic for indexing and querying
-│   ├── pathrag.py          # The main PathRAG class and configuration
-│   ├── prompt.py           # All prompts used by the LLM
-│   └── storage.py          # Concrete storage implementations
-├── main.py                 # The main Gradio application file
-├── requirements.txt        # All Python dependencies
-└── README.md               # This file
-```
 ## Cititation
 
 ```python

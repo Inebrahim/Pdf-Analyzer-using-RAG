@@ -36,7 +36,9 @@ Select:
 ### Step 3: Configure Secrets
 
 App requires API keys (e.g., OLLAMA_API_KEY), you must store them securely:
+
 In your Space, go to Settings → Repository Secrets.
+
 Add a new secret with key OLLAMA_API_KEY and paste your key value.
 
 ### Step 4: Upload Your Code

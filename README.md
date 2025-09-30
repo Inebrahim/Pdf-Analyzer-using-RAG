@@ -18,6 +18,8 @@ This guide provides a step-by-step process to set up and run the application.
 
 ### Prerequisites
 - Git
+- Hugging Face account – sign up at huggingface.co
+- Ollama API key.
 
 ### Step 1: Clone the Repository
 First, get a copy of the project on your local machine.
